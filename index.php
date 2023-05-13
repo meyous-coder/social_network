@@ -1,11 +1,6 @@
 <?php
-if(isset($_POST['envoyer'])){
-    if(isset($_POST['lastname'],$_POST['firstname'],$_POST['message'])){
-    extract($_POST);
+$title = "Accueil";
 
-    echo $firstname." ".$lastname." ".$message;
-    }
-}
-
-require ("views/index.view.php");
+include "includes/constants.php";
+require "views/index.view.php";
 
