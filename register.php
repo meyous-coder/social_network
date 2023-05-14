@@ -3,6 +3,8 @@
 /*****************************************************************/
 $title = "Inscription";
 include "includes/constants.php";
+include "config/database.php";
+include "includes/functions.php";
 /*****************************************************************/
 
 // Si le formulaire a éte soumis
@@ -11,7 +13,7 @@ if(isset($_POST['register']))
 {
     // Si tous les champs ont été remplis
 
-    if(!empty($_POST['name']) && !empty($_POST['pseudo']) && !empty($_POST['email']) && !empty($_POST['password']) && !empty($_POST['password_confirm']))
+    if(not_empty(['name','pseudo','email','password','password_confirm']))
     {
         $errors = []; // Tableau contenant l' ensemble des erreurs
         extract($_POST);
