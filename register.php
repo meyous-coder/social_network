@@ -15,17 +15,19 @@ if(isset($_POST['register']))
 
     if(not_empty(['name','pseudo','email','password','password_confirm']))
     {
+
+
         $errors = []; // Tableau contenant l' ensemble des erreurs
         extract($_POST);
 
         /* Validation des champs du formulaire */
 
-        if(mb_strlen($name))
+        if(mb_strlen($name)<3)
         {
             $errors[] = "Nom et Prénoms trop court ! (Minimum 3 caractères)";
         }
 
-        if(mb_strlen($pseudo))
+        if(mb_strlen($pseudo)<3)
         {
             $errors[] = "Pseudo trop court ! (Minimum 3 caractères)";
         }
@@ -63,7 +65,31 @@ if(isset($_POST['register']))
 
         if(count($errors) == 0)
         {
+
             // Envoi d' un mail d' activation
+            $to = $email;
+            $subject = WEBSITE_NAME." - ACTIVATION DE COMPTE";
+            $token = sha1($pseudo.$email.$password);
+
+            ob_start();
+
+            require "templates/emails/activation.tmpl.php";
+            $content = ob_get_clean();
+
+            $headers = 'MINE-Version : 1.0 ' . "\r\n";
+            $headers .= 'Content-type : text/html charset=iso-8859-1' . "\r\n";
+
+            //mail($to, $subject, $message,$headers);
+
+            // Enregistrement des informations en base de données
+
+            $q = $db->prepare("INSERT INTO users (name,pseudo,email,password) VALUES (:name ,:pseudo ,:email ,:password)") ;
+            $q->execute([
+                'name' => $name,
+                'pseudo' => $pseudo,
+                'email' => $email,
+                'password' => $password
+            ]);
 
             // Informer l' utilisateur pour qu' il vérifie sa boite de messagerie
 

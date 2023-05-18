@@ -4,7 +4,7 @@
 
         <h1 class="lead">Inscription</h1>
 
-        <form action="" class="col-md-6 well" >
+        <form action="" method="post" class="col-md-6 well" autocomplete="off">
 
             <!-- Name field -->
 
@@ -46,10 +46,6 @@
             <!--  Send Button -->
 
             <input type="submit" name="register" value="Inscription" class="btn btn-primary">
-
-
-
-
 
         </form>
 
