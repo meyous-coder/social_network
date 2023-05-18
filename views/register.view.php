@@ -3,7 +3,7 @@
     <div class="container">
 
         <h1 class="lead">Inscription</h1>
-
+        <?php include "partials/_errors.php"?>
         <form action="" method="post" class="col-md-6 well" autocomplete="off">
 
             <!-- Name field -->

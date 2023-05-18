@@ -91,13 +91,7 @@ if(isset($_POST['register']))
                 'password' => $password
             ]);
 
-            // Informer l' utilisateur pour qu' il vérifie sa boite de messagerie
 
-            // Enregistrement de l' utilisateur
-
-            // Message de bienvenue
-
-            // Redirection vers la page de  connexion
         }
 
 
