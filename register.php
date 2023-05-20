@@ -1,5 +1,6 @@
 <?php
-
+/*****************************************************************/
+session_start();
 /*****************************************************************/
 $title = "Inscription";
 include "includes/constants.php";
@@ -91,6 +92,8 @@ if(isset($_POST['register']))
                 'password' => $password
             ]);
 
+            set_flash("Mail d' activation envoyé à l' adresse mail : ".$email,'info');
+            redirect("index.php");
 
         }
 
