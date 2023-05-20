@@ -95,6 +95,9 @@ if(isset($_POST['register']))
             set_flash("Mail d' activation envoyé à l' adresse mail : ".$email,'info');
             redirect("index.php");
 
+        }else
+        {
+            save_input_data();
         }
 
 
@@ -102,6 +105,9 @@ if(isset($_POST['register']))
     {
         $errors[] = "Veuillez SVP remplir tous les champs ";
     }
+}else
+{
+    clear_input_data();
 }
 
 /*****************************************************************/

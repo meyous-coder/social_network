@@ -2,52 +2,56 @@
 
     <div class="container">
 
-        <h1 class="lead">Inscription</h1>
-        <?php include "partials/_errors.php"?>
-        <form action="" method="post" class="col-md-6 well" autocomplete="off">
+        <div class="col-md-6">
 
-            <!-- Name field -->
+            <h1 class="lead">Inscription</h1>
+            <?php include "partials/_errors.php"?>
+            <form action="" method="post" class="well" autocomplete="off">
 
-            <div class="form-group">
-                <label class="control-label" for="name">Nom et Prenoms : </label>
-                <input type="text" name="name" placeholder="Nom" class="form-control" required>
-            </div>
+                <!-- Name field -->
 
-            <!-- Pseudo field -->
+                <div class="form-group">
+                    <label class="control-label" for="name">Nom et Prenoms : </label>
+                    <input type="text" name="name" value="<?= get_input_data("name")?>" placeholder="Nom" class="form-control" required>
+                </div>
 
-            <div class="form-group">
-                <label class="control-label" for="pseudo">Pseudo :</label>
-                <input type="text" name="pseudo" placeholder="Pseudo" class="form-control" required>
-            </div>
+                <!-- Pseudo field -->
 
-            <!-- Email field -->
+                <div class="form-group">
+                    <label class="control-label" for="pseudo">Pseudo :</label>
+                    <input type="text" name="pseudo" value="<?= get_input_data("pseudo")?>" placeholder="Pseudo" class="form-control" required>
+                </div>
 
-            <div class="form-group">
-                <label class="control-label" for="pseudo">Email :</label>
-                <input type="text" name="email" placeholder="Email" class="form-control" required>
-            </div>
+                <!-- Email field -->
 
-            <!-- Password field -->
+                <div class="form-group">
+                    <label class="control-label" for="pseudo">Email :</label>
+                    <input type="text" name="email" value="<?= get_input_data("email")?>" placeholder="Email" class="form-control" required>
+                </div>
 
-            <div class="form-group">
-                <label class="control-label" for="password">Mot de passe :</label>
-                <input type="password" name="password" placeholder="Mot de passe" class="form-control" required>
-            </div>
+                <!-- Password field -->
 
-
-            <!-- Password confirm field -->
-
-            <div class="form-group">
-                <label class="control-label" for="password_confirm">Confirmer mot de passe :</label>
-                <input type="password" name="password_confirm" placeholder="Confirmer votre mot de passe" class="form-control" required>
-            </div>
+                <div class="form-group">
+                    <label class="control-label" for="password">Mot de passe :</label>
+                    <input type="password" name="password" placeholder="Mot de passe" class="form-control" required>
+                </div>
 
 
-            <!--  Send Button -->
+                <!-- Password confirm field -->
 
-            <input type="submit" name="register" value="Inscription" class="btn btn-primary">
+                <div class="form-group">
+                    <label class="control-label" for="password_confirm">Confirmer mot de passe :</label>
+                    <input type="password" name="password_confirm" placeholder="Confirmer votre mot de passe" class="form-control" required>
+                </div>
 
-        </form>
+
+                <!--  Send Button -->
+
+                <input type="submit" name="register" value="Inscription" class="btn btn-primary">
+
+            </form>
+
+        </div>
 
     </div><!-- /.container -->
 
