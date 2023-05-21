@@ -11,7 +11,7 @@
                 <!-- Name field -->
 
                 <div class="form-group">
-                    <label class="control-label" for="name">Nom et Prenoms : </label>
+                    <label class="control-label" for="name">Nom : </label>
                     <input type="text" id="name" name="name" value="<?= get_input_data("name") ?>" placeholder="Nom"
                            class="form-control" data-parsley-minlength="3" data-parsley-trigger="keypress" required>
                 </div>

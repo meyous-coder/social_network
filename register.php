@@ -21,6 +21,7 @@ if(isset($_POST['register']))
         $errors = []; // Tableau contenant l' ensemble des erreurs
         extract($_POST);
 
+
         /* Validation des champs du formulaire */
 
         if(mb_strlen($name)<3)
@@ -89,7 +90,7 @@ if(isset($_POST['register']))
                 'name' => $name,
                 'pseudo' => $pseudo,
                 'email' => $email,
-                'password' => $password
+                'password' => sha1($password)
             ]);
 
             set_flash("Mail d' activation envoyé à l' adresse mail : ".$email,'info');
