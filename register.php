@@ -3,6 +3,7 @@
 session_start();
 /*****************************************************************/
 $title = "Inscription";
+include "filters/guest_filter.php";
 include "includes/constants.php";
 include "config/database.php";
 include "includes/functions.php";

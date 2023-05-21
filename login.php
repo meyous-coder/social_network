@@ -3,6 +3,7 @@
 session_start();
 /*****************************************************************/
 $title = "Connexion";
+include "filters/guest_filter.php";
 include "includes/constants.php";
 include "config/database.php";
 include "includes/functions.php";
@@ -16,7 +17,7 @@ if (isset($_POST['login'])) {
     if (not_empty(['identifiant', 'password'])) {
         extract($_POST);
 
-        $q = $db->prepare("SELECT id FROM users 
+        $q = $db->prepare("SELECT id, pseudo FROM users 
                                  WHERE (pseudo = :identifiant OR  email = :identifiant)
                                  AND password = :password AND active ='0'");
         $q->execute([
@@ -27,6 +28,11 @@ if (isset($_POST['login'])) {
 
         if($userHasBeenFound)
         {
+            $user = $q->fetch(PDO::FETCH_OBJ);
+
+            $_SESSION['user_id'] = $user->id;
+            $_SESSION['pseudo'] = $user->pseudo;
+
             redirect("profile.php");
         }else
         {
