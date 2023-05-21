@@ -92,7 +92,7 @@ if(!function_exists('get_input_data'))
     }
 }
 /******************************************************************************************/
-/************************************CLEAR_INPUT_DATA(Vider la SESSION['input'])-**********/
+/************************************CLEAR_INPUT_DATA*************************************/
 if(!function_exists('clear_input_data'))
 {
     function clear_input_data()
@@ -113,6 +113,25 @@ if(!function_exists('e'))
         {
             return htmlspecialchars($string);
             // return htmlentities($string,ENT_QUOTES,'utf8',false);
+        }
+    }
+}
+/******************************************************************************************/
+/************************************SET_ACTIVE*******************************************/
+if(!function_exists('set_active'))
+{
+
+    // Gère l' état actif de nos différents liens
+    function set_active($file,$class = 'active')
+    {
+        $page = trim(strrchr($_SERVER['SCRIPT_NAME'],'/'),'/');
+
+        if($page === $file.'.php')
+        {
+            return $class;
+        }else
+        {
+            return null;
         }
     }
 }
