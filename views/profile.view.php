@@ -7,12 +7,22 @@
             <div class="col-md-6">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Profil de : <?= e( $_SESSION['pseudo'])?></h3>
+                        <h3 class="panel-title">Profil de : <?= e($user->pseudo)?></h3>
                     </div>
                     <div class="panel-body">
-                        Image <br>
-                        Pseudo <br>
-                        Adresse email <br>
+                        <?php $gravatar_url = "http://gravatar.com/avatar/".md5(strtolower(trim(e($user->email)))) ?>
+                        <div class="row">
+                            <div class="col-md-5">
+                                <img src="<?= get_avatar_url($user->email)?>" alt="image de profil de <?= e($user->pseudo)?>" class="img-circle">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <strong><?= e($user->pseudo)?></strong>
+                                <br>
+                                <a href="mailto:<?=e($user->email) ?>"><?=e($user->email) ?></a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

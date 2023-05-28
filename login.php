@@ -33,7 +33,7 @@ if (isset($_POST['login'])) {
             $_SESSION['user_id'] = $user->id;
             $_SESSION['pseudo'] = $user->pseudo;
 
-            redirect("profile.php");
+            redirect("profile.php?id=".$user->id);
         }else
         {
             set_flash("Combinaison Identifiant/Mot de passe incorrect",'danger');
