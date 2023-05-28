@@ -12,8 +12,18 @@
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 <li class="<?= set_active("index")?>"><a href="index.php">Accueil</a></li>
-                <li class="<?= set_active("register")?>"><a href="register.php">Inscription</a></li>
-                <li class="<?= set_active("login")?>"><a href="login.php">Connexion</a></li>
+
+                <?php if(is_logged_in()) : ?>
+                    <li class="<?= set_active("profile")?>"><a href="profile.php?id=<?=get_session("user_id")?>">Profil</a></li>
+                    <li class="<?= set_active("logout")?>"><a href="logout.php">Déconnexion</a></li>
+                <?php else : ?>
+                    <li class="<?= set_active("register")?>"><a href="register.php">Inscription</a></li>
+                    <li class="<?= set_active("login")?>"><a href="login.php">Connexion</a></li>
+                <?php endif;?>
+
+
+
+
             </ul>
         </div><!--/.nav-collapse -->
     </div>
