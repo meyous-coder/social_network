@@ -171,3 +171,22 @@ if (!function_exists('is_logged_in')) {
     }
 }
 /******************************************************************************************/
+/************************************FIND_CODE_BY_ID***************************************/
+if (!function_exists('find_code_by_id')) {
+
+    // Find an code by id
+    function find_code_by_id($id)
+    {
+       global $db;
+
+       $q = $db->prepare("SELECT code FROM codes WHERE id = ?");
+       $q->execute([$id]);
+
+       $data = $q->fetch(PDO::FETCH_OBJ);
+
+       $q->closeCursor();
+       return $data;
+
+    }
+}
+/******************************************************************************************/

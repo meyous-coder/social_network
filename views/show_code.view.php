@@ -3,7 +3,7 @@
 <div class="main-content">
     <div class="main-content-share-code" id="main-content-share-code">
 
-        <pre>
+        <pre class="prettyprint linenums ">
             <?= $data->code; ?>
         </pre>
 
@@ -19,6 +19,10 @@
 
 <script src="assets/js/jquery1.12.4.js"></script>
 <script src="assets/js/bootstrap.js"></script>
+<script src="assets/js/prettify.min.js"></script>
+<script>
+    prettyPrint();
+</script>
 
 </body>
 </html>

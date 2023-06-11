@@ -10,15 +10,13 @@ include "includes/functions.php";
 /*****************************************************************/
 
 if (!empty($_GET['id'])) {
-    $q = $db->prepare("SELECT code FROM codes WHERE id = ?");
-    $q->execute([$_GET['id']]);
 
-    $data = $q->fetch(PDO::FETCH_OBJ);
-
-    if ($data) {
-        $code = $data->code;
-    } else {
+    $data = find_code_by_id($_GET['id']);
+    if ( ! $data) {
         $code = "";
+    } else {
+
+        $code = $data->code;
     }
 
 }else{

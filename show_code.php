@@ -9,9 +9,8 @@ include "config/database.php";
 include "includes/functions.php";
 /*****************************************************************/
 if (!empty($_GET['id'])) {
-    $q = $db->prepare("SELECT id,code FROM codes WHERE id = ?");
-    $q->execute([$_GET['id']]);
-    $data = $q->fetch(PDO::FETCH_OBJ);
+
+    $data = find_code_by_id($_GET['id']);
 
     if (!$data) {
         redirect("share_code.php");
