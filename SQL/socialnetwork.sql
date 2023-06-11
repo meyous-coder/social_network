@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : dim. 11 juin 2023 à 03:16
+-- Généré le : dim. 11 juin 2023 à 04:10
 -- Version du serveur : 8.0.31
 -- Version de PHP : 8.0.26
 
@@ -20,6 +20,26 @@ SET time_zone = "+00:00";
 --
 -- Base de données : `socialnetwork`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `codes`
+--
+
+DROP TABLE IF EXISTS `codes`;
+CREATE TABLE IF NOT EXISTS `codes` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `code` text COLLATE utf8mb4_unicode_ci,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `codes`
+--
+
+INSERT INTO `codes` (`id`, `code`) VALUES
+(1, '<?php\r\n/*****************************************************************/\r\nsession_start();\r\n/*****************************************************************/\r\n$title = \"Connexion\";\r\ninclude \"filters/auth_filter.php\";\r\ninclude \"includes/constants.php\";\r\ninclude \"config/database.php\";\r\ninclude \"includes/functions.php\";\r\n/*****************************************************************/\r\n\r\nif(isset($_POST[\'save\']))\r\n{\r\n    if(not_empty([\'code\']))\r\n    {\r\n        extract($_POST);\r\n\r\n        $q = $db->prepare(\"INSERT INTO codes (code) VALUES (?)\");\r\n        $success = $q->execute([$code]);\r\n\r\n        if($success)\r\n        {\r\n            // Afficher le code source\r\n        }else\r\n        {\r\n            set_flash(\"Erreur lors de l\' ajout du code source. Veuillez réessayez SVP !\");\r\n            redirect(\"share_code.php\");\r\n        }\r\n    }else\r\n    {\r\n        redirect(\"share_code.php\");\r\n    }\r\n}\r\n/*****************************************************************/\r\nrequire \"views/share_code.view.php\";\r\n/*****************************************************************/');
 
 -- --------------------------------------------------------
 

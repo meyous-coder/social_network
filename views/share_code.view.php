@@ -2,10 +2,10 @@
 
     <div class="main-content">
         <div class="main-content-share-code" id="main-content-share-code">
-            <form action="" autocomplete="off">
+            <form action="" method="post" autocomplete="off">
                 <textarea name="code" id="code" placeholder="Entrer votre code ici ..." required ></textarea>
 
-                <div class="btn-group nav">
+                <div class="btn-group nav-code">
 <!--                    <a href="share_code.view.php" class="btn btn-danger">Tout effacer</a>-->
                     <input type="reset"  class="btn btn-danger" value="Tout effacer">
                     <input type="submit" name="save" class="btn btn-success" value="Enregistrer">

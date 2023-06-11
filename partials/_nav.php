@@ -15,7 +15,7 @@
 
                 <?php if(is_logged_in()) : ?>
                     <li class="<?= set_active("profile")?>"><a href="profile.php?id=<?=get_session("user_id")?>">Mon profil</a></li>
-                    <li class="<?= set_active("logout")?>"><a href="share_code.php">Partager</a></li>
+                    <li class="<?= set_active("share_code")?>"><a href="share_code.php">Partager</a></li>
                     <li class="<?= set_active("logout")?>"><a href="logout.php">Déconnexion</a></li>
                 <?php else : ?>
                     <li class="<?= set_active("register")?>"><a href="register.php">Inscription</a></li>
