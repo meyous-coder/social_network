@@ -53,6 +53,7 @@ if (isset($_POST['update'])) {
         ]);
 
         set_flash("Félicitations, votre profil a été mis à jour !");
+        redirect("profile.php?id=".get_session('user_id'));
 
 
     }
