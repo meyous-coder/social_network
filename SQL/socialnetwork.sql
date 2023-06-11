@@ -2,10 +2,10 @@
 -- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:3306
--- Generation Time: May 28, 2023 at 01:58 AM
--- Server version: 8.0.31
--- PHP Version: 8.0.26
+-- Hôte : 127.0.0.1:3306
+-- Généré le : dim. 11 juin 2023 à 03:16
+-- Version du serveur : 8.0.31
+-- Version de PHP : 8.0.26
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `socialnetwork`
+-- Base de données : `socialnetwork`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Structure de la table `users`
 --
 
 DROP TABLE IF EXISTS `users`;
@@ -48,11 +48,11 @@ CREATE TABLE IF NOT EXISTS `users` (
 ) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `users`
+-- Déchargement des données de la table `users`
 --
 
 INSERT INTO `users` (`id`, `name`, `pseudo`, `email`, `password`, `active`, `city`, `country`, `sex`, `twitter`, `github`, `available_for_hiring`, `bio`) VALUES
-(13, 'MEITE Youssouf', 'meyous-coder', 'meyous2023@gmail.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '0', NULL, NULL, NULL, NULL, NULL, '0', NULL);
+(13, 'meite youssouf', 'meyous-coder', 'meyous2020@gmail.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '0', 'paris', 'France', 'H', 'meyous', 'meyous', '1', 'Test');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
