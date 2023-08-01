@@ -4,16 +4,16 @@
 
 
         <div class="row">
+
             <div class="col-md-6">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Profil de : <?= e($user->pseudo)?></h3>
+                        <h3 class="panel-title">Profil de : <?= e(get_session('pseudo'))?></h3>
                     </div>
                     <div class="panel-body">
-                        <?php $gravatar_url = "http://gravatar.com/avatar/".md5(strtolower(trim(e($user->email)))) ?>
                         <div class="row">
                             <div class="col-md-5">
-                                <img src="<?= get_avatar_url($user->email)?>" alt="image de profil de <?= e($user->pseudo)?>" class="img-circle">
+                                <img src="<?= get_avatar_url(get_session('email'),100)?>" alt="image de profil de <?= e(get_session('pseudo'))?>" class="img-circle">
                             </div>
                         </div>
                         <div class="row">
@@ -60,6 +60,9 @@
                     </div>
                 </div>
             </div>
+
+            <?php if(!empty($_GET['id']) && $_GET['id'] === get_session('user_id') ): ?>
+                    
             <div class="col-md-6">
                 <div class="panel panel-default">
                     <div class="panel-heading">
@@ -170,6 +173,9 @@
                     </div>
                 </div>
             </div>
+
+            <?php endif; ?>
+
         </div>
 
     </div><!-- /.container -->

@@ -155,9 +155,9 @@ if (!function_exists('find_user_by_id')) {
 if (!function_exists('get_avatar_url')) {
 
     // Find an user by id
-    function get_avatar_url($email)
+    function get_avatar_url($email,$size=25)
     {
-       return "http://gravatar.com/avatar/".md5(strtolower(trim(e($email))));
+       return "http://gravatar.com/avatar/".md5(strtolower(trim(e($email))))."?s=".$size;
     }
 }
 /******************************************************************************************/

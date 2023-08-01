@@ -17,7 +17,7 @@ if (isset($_POST['login'])) {
     if (not_empty(['identifiant', 'password'])) {
         extract($_POST);
 
-        $q = $db->prepare("SELECT id, pseudo FROM users 
+        $q = $db->prepare("SELECT id, pseudo,email FROM users 
                                  WHERE (pseudo = :identifiant OR  email = :identifiant)
                                  AND password = :password AND active ='0'");
         $q->execute([
@@ -32,6 +32,7 @@ if (isset($_POST['login'])) {
 
             $_SESSION['user_id'] = $user->id;
             $_SESSION['pseudo'] = $user->pseudo;
+            $_SESSION['email'] = $user->email;
 
             redirect("profile.php?id=".$user->id);
         }else
