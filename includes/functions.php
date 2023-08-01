@@ -190,3 +190,13 @@ if (!function_exists('find_code_by_id')) {
     }
 }
 /******************************************************************************************/
+/************************************GET_CURRENT_LOCALE************************************/
+if (!function_exists('get_current_locale')) {
+
+    // Get current locale language
+    function get_current_locale()
+    {
+        return $_SESSION['locale'];
+    }
+}
+/******************************************************************************************/
