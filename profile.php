@@ -3,11 +3,12 @@
 session_start();
 /*****************************************************************/
 $title = "Page de profil";
-
+include "bootstrap/locale.php";
 include "filters/auth_filter.php";
 include "includes/constants.php";
 include "config/database.php";
 include "includes/functions.php";
+
 /*****************************************************************/
 
 if(!empty($_GET['id']))

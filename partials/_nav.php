@@ -18,7 +18,7 @@
                 <li class="<?= set_active("index") ?>"><a href="index.php"><?= $menu['accueil'][get_current_locale()] ?></a></li>
                 <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                        aria-expanded="false"> <img src="<?= get_avatar_url(get_session('email'))?>" alt="image de profil de <?= get_session('email')?>" class="img-circle"> <span class="caret"></span></a>
+                        aria-expanded="false"><span class="caret"></span></a>
                     <ul class="dropdown-menu">
 
                         <?php if (is_logged_in()): ?>

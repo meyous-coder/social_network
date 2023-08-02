@@ -155,9 +155,9 @@ if (!function_exists('find_user_by_id')) {
 if (!function_exists('get_avatar_url')) {
 
     // Find an user by id
-    function get_avatar_url($email,$size=25)
+    function get_avatar_url($email, $size = 25)
     {
-       return "http://gravatar.com/avatar/".md5(strtolower(trim(e($email))))."?s=".$size;
+        return "http://gravatar.com/avatar/" . md5(strtolower(trim(e($email)))) . "?s=" . $size;
     }
 }
 /******************************************************************************************/
@@ -177,15 +177,15 @@ if (!function_exists('find_code_by_id')) {
     // Find an code by id
     function find_code_by_id($id)
     {
-       global $db;
+        global $db;
 
-       $q = $db->prepare("SELECT code FROM codes WHERE id = ?");
-       $q->execute([$id]);
+        $q = $db->prepare("SELECT code FROM codes WHERE id = ?");
+        $q->execute([$id]);
 
-       $data = $q->fetch(PDO::FETCH_OBJ);
+        $data = $q->fetch(PDO::FETCH_OBJ);
 
-       $q->closeCursor();
-       return $data;
+        $q->closeCursor();
+        return $data;
 
     }
 }
@@ -197,6 +197,31 @@ if (!function_exists('get_current_locale')) {
     function get_current_locale()
     {
         return $_SESSION['locale'];
+    }
+}
+/******************************************************************************************/
+/************************************BCRYPT_HASH_PASSWORD************************************/
+if (!function_exists('bcrypt_hash_password')) {
+
+    // Hash password with Blowfish Algorithm
+    function bcrypt_hash_password($value, $option = [])
+    {
+        $cost = isset($options['rounds']) ? $options['rounds'] : 10;
+        $hash = password_hash($value, PASSWORD_BCRYPT, ['cost' => $cost]);
+        if ($hash === false) {
+            throw new Exception("Bcrypt hashing n'est pas supporté.");
+        }
+        return $hash;
+    }
+}
+/******************************************************************************************/
+/************************************BCRYPT_VERIFY_PASSWORD************************************/
+if (!function_exists('bcrypt_verify_password')) {
+
+    // Hash password with Blowfish Algorithm
+    function bcrypt_verify_password($value, $hashedValue)
+    {
+        return password_verify($value, $hashedValue);
     }
 }
 /******************************************************************************************/
