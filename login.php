@@ -26,7 +26,7 @@ if (isset($_POST['login'])) {
         ]);
 
         $user = $q->fetch(PDO::FETCH_OBJ);
-
+        
         if ($user && bcrypt_verify_password($password, $user->hashed_password)) {
             $_SESSION['user_id'] = $user->id;
             $_SESSION['pseudo'] = $user->pseudo;

@@ -123,7 +123,6 @@ if (!function_exists('get_session')) {
     // Gère l' état actif de nos différents liens
     function get_session($key)
     {
-
         if (isset($key)) {
             return $_SESSION[$key];
         } else {

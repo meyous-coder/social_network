@@ -7,6 +7,7 @@ include "filters/auth_filter.php";
 include "includes/constants.php";
 include "config/database.php";
 include "includes/functions.php";
+include "bootstrap/locale.php";
 /*****************************************************************/
 
 if (!empty($_GET['id'])) {

@@ -1,4 +1,4 @@
 <?php
 session_start();
-session_destroy();
-$_SESSION = [];
+var_dump($_SESSION['pseudo']);
+die();

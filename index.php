@@ -6,7 +6,7 @@ $title = "Accueil";
 include "bootstrap/locale.php";
 include "includes/constants.php";
 include "includes/functions.php";
-include "bootstrap/locale.php";
+
 
 /*****************************************************************/
 
