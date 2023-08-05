@@ -59,6 +59,23 @@ if (!function_exists('redirect')) {
     }
 }
 /******************************************************************************************/
+/***************************************REDIRECT_INTENT_OR*******************************************/
+
+if ( ! function_exists( 'redirect_intent_or' ) )
+{
+    function redirect_intent_or ( $default_url)
+    {
+        if( $_SESSION['forwarding_url'] )
+        {
+            $url = $_SESSION['forwarding_url'];
+        }else {
+            $url = $default_url;
+        }
+        $_SESSION['forwarding_url'] = null;
+        redirect($url);
+    }
+}
+/******************************************************************************************/
 /***************************************SAVE_INPUT_DATA************************************/
 if (!function_exists('save_input_data')) {
     function save_input_data()
