@@ -13,14 +13,17 @@
             </a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="list_users.php" class="btn btn-default">Liste des utilisateurs</a></li>
+            </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li class="<?= set_active("index") ?>"><a href="index.php">
+                <!-- <li class="<?= set_active("index") ?>"><a href="index.php">
                         <?= $menu['accueil'][get_current_locale()] ?>
-                    </a></li>
+                    </a></li> -->
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                        aria-expanded="false"> <img src="<?= get_avatar_url(null, 25) ?>"
-                            alt="image de profil de <?= e(null) ?>" class="img-circle"> <span class="caret"></span></a>
+                        aria-expanded="false"> <img src="<?= get_avatar_url(get_session("email"), 25) ?>"
+                            alt="image de profil de <?= e(get_session("pseudo")) ?>" class="img-circle"> <span class="caret"></span></a>
                     <ul class="dropdown-menu">
 
                         <?php if (is_logged_in()): ?>

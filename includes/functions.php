@@ -118,15 +118,16 @@ if (!function_exists('set_active')) {
 }
 /******************************************************************************************/
 /************************************GET_SESSION*******************************************/
-if (!function_exists('get_session')) {
-
-    // Gère l' état actif de nos différents liens
-    function get_session($key)
+// Get a session value by key
+if ( ! function_exists( 'get_session' ) )
+{
+    function get_session ( $key )
     {
-        if (isset($key)) {
-            return $_SESSION[$key];
-        } else {
-            return null;
+        if ($key)
+        {
+            return ! empty ( $_SESSION[$key] )
+                ? e( $_SESSION[$key] )
+                : null ;
         }
     }
 }
