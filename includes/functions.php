@@ -144,7 +144,7 @@ if ( ! function_exists( 'get_session' ) )
         {
             return ! empty ( $_SESSION[$key] )
                 ? e( $_SESSION[$key] )
-                : null ;
+                : "null" ;
         }
     }
 }
@@ -174,7 +174,7 @@ if (!function_exists('get_avatar_url')) {
     // Find an user by id
     function get_avatar_url($email, $size = 25)
     {
-        return "http://gravatar.com/avatar/" . md5(strtolower(trim(e($email)))) . "?s=" . $size;
+        return "http://gravatar.com/avatar/" . md5(strtolower(trim($email))) . "?s=" . $size;
     }
 }
 /******************************************************************************************/

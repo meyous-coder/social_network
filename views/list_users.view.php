@@ -2,7 +2,7 @@
 <div class="container">
   <h1 class="lead">Liste des utilisateurs</h1>
   <?php foreach ($users as $user): ?>
-    <div class="user_block">
+    <div class="user_block col-md-3">
       <a href="profile.php?id=<?= $user->id ?>">
         <img src="<?= get_avatar_url($user->email, 80) ?>" class="img-circle">
       </a>
