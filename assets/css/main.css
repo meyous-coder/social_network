@@ -79,6 +79,15 @@ textarea.parsley-error {
 /*********************** END SHARE CODE CSS*******************************/
 
 /*********************** LIST USERS CSS*******************************/
+.users{
+    margin-bottom: 3em;
+}
+.user_block{
+    text-align: center;
+}
 
+.user_block .avatar{
+    margin: auto;
+}
 
 /*********************** END LIST USERS CSS*******************************/
