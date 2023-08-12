@@ -114,3 +114,12 @@ textarea.parsley-error {
     float: right;
 }
 /*********************** END STATUS POST*******************************/
+
+/*********************** MICROPOSTS CSS*******************************/
+.status-media{
+    border: 1px solid #e3e3e3;
+    background: #fff;
+    padding: 1em;
+    margin-bottom: 2em;
+}
+/*********************** END MICROPOSTS CSS*******************************/

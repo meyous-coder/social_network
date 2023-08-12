@@ -1,0 +1,10 @@
+<article class="media status-media">
+    <div class="pull-left">
+        <img src="<?= get_avatar_url($user->email) ?>" alt="<?= $user->pseudo; ?>">
+    </div>
+    <div class="media-body">
+        <h4 class="media-heading"><?= $user->pseudo ?></h4>
+        <p><i class="fa fa-clock-o"></i> <span class="timeago" title="<?= $micropost->created_at;?>"><?= $micropost->created_at;?></span></p>
+        <?= $micropost->content; ?>
+    </div>
+</article>
