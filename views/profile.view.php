@@ -69,7 +69,7 @@
                         <div class="form-group">
                             <label for="content" class="sr-only">Statut : </label>
                             <textarea name="content" id="content" rows="3" class="form-control"
-                                      placeholder="Alors quoi de neuf ?" required></textarea>
+                                      placeholder="Alors quoi de neuf ?" required data-parsley-minlength="3" data-parsley-maxlength="140"></textarea>
                         </div>
                         <div class="status-post-submit">
                             <div class="form-group">
@@ -95,15 +95,19 @@
 <?php include "partials/_footer.php" ?>
 <script src="libraries/parsley/parsley.min.js"></script>
 <script src="libraries/parsley/i18n/fr.js"></script>
-<script src="assets/js/jquery.livequery.min.js"></script>
+<!--Live query permet de recharger la page sans actualisation -->
+<!--<script src="assets/js/jquery.livequery.min.js"></script>-->
 <script src="assets/js/jquery.timeago.js"></script>
 <script src="assets/js/jquery.timeago.fr.js"></script>
 <script type="text/javascript">
     window.ParsleyValidator.setLocale('fr');
-    $(document).ready(function () {
-        $(".timeago").livequery(function () {
-            $(this).timeago();
+    // $(document).ready(function () {
+    //     $(".timeago").livequery(function () {
+    //         $(this).timeago();
+    //     });
+    // });
 
-        });
-    })
+    $(document).ready(function () {
+        $(".timeago").timeago();
+    });
 </script>

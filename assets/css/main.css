@@ -121,5 +121,6 @@ textarea.parsley-error {
     background: #fff;
     padding: 1em;
     margin-bottom: 2em;
+    word-break: break-all;
 }
 /*********************** END MICROPOSTS CSS*******************************/
