@@ -3,6 +3,7 @@
 session_start();
 /*****************************************************************/
 $title = "Edition de profil";
+include "includes/init.php";
 include "bootstrap/locale.php";
 include "filters/auth_filter.php";
 include "includes/constants.php";

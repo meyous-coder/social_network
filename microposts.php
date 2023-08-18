@@ -2,6 +2,7 @@
 /*****************************************************************/
 session_start();
 /*****************************************************************/
+include "includes/init.php";
 include "bootstrap/locale.php";
 include "filters/auth_filter.php";
 include "config/database.php";

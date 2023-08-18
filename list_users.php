@@ -3,6 +3,7 @@
 session_start();
 /*****************************************************************/
 $title = "Liste des utilisateurs";
+include "includes/init.php";
 include "includes/constants.php";
 include "includes/functions.php";
 include "bootstrap/locale.php";

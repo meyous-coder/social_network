@@ -3,6 +3,7 @@
 session_start();
 /*****************************************************************/
 $title = "Affichage de code source";
+include "includes/init.php";
 include "filters/auth_filter.php";
 include "includes/constants.php";
 include "config/database.php";

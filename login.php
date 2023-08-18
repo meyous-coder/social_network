@@ -2,6 +2,7 @@
 session_start();
 /*****************************************************************/
 $title = "Connexion";
+include "includes/init.php";
 include "filters/guest_filter.php";
 include "includes/constants.php";
 include "config/database.php";
@@ -31,6 +32,14 @@ if (isset($_POST['login'])) {
             $_SESSION['pseudo'] = $user->pseudo;
             $_SESSION['email'] = $user->email;
             $_SESSION['avatar'] = $user->avatar;
+
+            // Si l' utilisateur a choisi de garder sa session active
+            if(isset($_POST['remember_me']) && $_POST['remember_me'] == 'on'){
+                setcookie('user_id',$user->id,time()+60*60*24*365,"","",false,true);
+                setcookie('pseudo',$user->pseudo,time()+60*60*24*365,"","",false,true);
+                setcookie('avatar',$user->avatar,time()+60*60*24*365,"","",false,true);
+            }
+
             redirect_intent_or("profile.php?id=" . $user->id);
         } else {
             set_flash("Combinaison Identifiant/Mot de passe incorrect", 'danger');
