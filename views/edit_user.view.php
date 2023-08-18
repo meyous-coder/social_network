@@ -130,6 +130,7 @@
 <script src="assets/js/bootstrap.js"></script>
 <script src="libraries/parsley/parsley.min.js"></script>
 <script src="libraries/uploadify/jquery.uploadifive.js"></script>
+<script src="libraries/alertifyjs/alertify.min.js"></script>
 <script src="libraries/parsley/i18n/fr.js"></script>
 <script type="text/javascript">
     <?php $timestamp = time();?>
@@ -146,8 +147,12 @@
             },
             'queueID': 'queue',
             'uploadScript': 'libraries/uploadify/uploadifive.php',
+            'onError'          : function(file, fileType, data) {
+                alertify.error("Erreur lors de l'upload du ficher, Veuillez réessayer SVP")
+            },
             'onUploadComplete': function (file, data) {
-                console.log(data);
+                alertify.success("Votre avatar a été uploadé avec succès !");
+                window.location = '/profile.php';
             }
         });
     });

@@ -22,8 +22,8 @@
                     </a></li> -->
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                        aria-expanded="false"> <img src="<?= get_avatar_url(get_session("email"), 25) ?>"
-                            alt="image de profil de <?= e(get_session("pseudo")) ?>" class="img-circle"> <span class="caret"></span></a>
+                       aria-expanded="false"> <img src="<?= get_session("avatar")?:get_avatar_url(get_session("email"), 25) ?>"
+                                                   alt="image de profil de <?= e(get_session("pseudo")) ?>" class="avatar-xs"> <span class="caret"></span></a>
                     <ul class="dropdown-menu">
 
                         <?php if (is_logged_in()): ?>

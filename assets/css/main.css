@@ -124,3 +124,16 @@ textarea.parsley-error {
     word-break: break-all;
 }
 /*********************** END MICROPOSTS CSS*******************************/
+/*********************** PROFIL CSS*******************************/
+.avatar-md{
+    border-radius: 100%;
+    width: 100px;
+    height: 100px;
+}
+
+.avatar-xs{
+    border-radius: 100%;
+    width: 25px;
+    height: 25px;
+}
+/*********************** END PROFIL CSS*******************************/

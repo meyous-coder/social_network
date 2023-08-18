@@ -20,6 +20,8 @@
     <link href="assets/css/prettify.min.css" rel="stylesheet">
     <link href="assets/css/font-awesome.css" rel="stylesheet">
     <link href="libraries/uploadify/uploadifive.css" rel="stylesheet">
+    <link href="libraries/alertifyjs/css/alertify.min.css" rel="stylesheet">
+    <link href="libraries/alertifyjs/css/themes/bootstrap.css" rel="stylesheet">
     <link href="assets/css/main.css" rel="stylesheet">
 
 
