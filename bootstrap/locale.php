@@ -9,5 +9,11 @@ if (!empty($_GET['lang']) && in_array($_GET['lang'], $authorized_languages)) {
   }
 }
 
-require'locales/menu.php';
-require'locales/long_text.php';
+//require'locales/menu.php';
+//require'locales/long_text.php';
+
+// Include all locales files
+$locates_files = glob("locales/*");
+foreach ($locates_files as $file) {
+    require $file;
+}

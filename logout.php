@@ -4,6 +4,7 @@ session_start();
 
 require('config/database.php');
 
+
 //Supprimer l'entrée en bdd au niveau de auth_tokens
 $q = $db->prepare("DELETE FROM auth_tokens WHERE user_id = ? ");
 $q->execute([$_SESSION['user_id']]);
@@ -16,6 +17,8 @@ $_SESSION = $new_session;
 
 // Supprimer les cookies et détruire la session
 setcookie( 'auth','',time() - 3600 );
+
+
 
 // Redirection
 header('Location: login.php');
