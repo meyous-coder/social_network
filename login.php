@@ -4,11 +4,6 @@ session_start();
 $title = "Connexion";
 include "includes/init.php";
 include "filters/guest_filter.php";
-include "includes/constants.php";
-include "config/database.php";
-include "includes/functions.php";
-include "bootstrap/locale.php";
-
 /*****************************************************************/
 
 // Si le formulaire a éte soumis
@@ -35,9 +30,7 @@ if (isset($_POST['login'])) {
 
             // Si l' utilisateur a choisi de garder sa session active
             if(isset($_POST['remember_me']) && $_POST['remember_me'] == 'on'){
-                setcookie('user_id',$user->id,time()+60*60*24*365,"","",false,true);
-                setcookie('pseudo',$user->pseudo,time()+60*60*24*365,"","",false,true);
-                setcookie('avatar',$user->avatar,time()+60*60*24*365,"","",false,true);
+                remember_me($user->id);
             }
 
             redirect_intent_or("profile.php?id=" . $user->id);

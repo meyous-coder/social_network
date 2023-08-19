@@ -4,12 +4,7 @@ session_start();
 /*****************************************************************/
 $title = "Inscription";
 include "includes/init.php";
-include "bootstrap/locale.php";
 include "filters/guest_filter.php";
-include "includes/constants.php";
-include "config/database.php";
-include "includes/functions.php";
-
 /*****************************************************************/
 
 // Si le formulaire a éte soumis

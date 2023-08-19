@@ -157,7 +157,7 @@ if (!function_exists('find_user_by_id')) {
     {
         global $db;
 
-        $q = $db->prepare("SELECT name, pseudo, email, city, country, twitter, github,available_for_hiring, sex, bio,avatar FROM users WHERE id = ?");
+        $q = $db->prepare("SELECT id, name, pseudo, email, city, country, twitter, github,available_for_hiring, sex, bio,avatar FROM users WHERE id = ?");
         $q->execute([$id]);
 
         $data = $q->fetch(PDO::FETCH_OBJ);
@@ -232,7 +232,7 @@ if (!function_exists('bcrypt_hash_password')) {
     }
 }
 /******************************************************************************************/
-/************************************BCRYPT_VERIFY_PASSWORD************************************/
+/************************************BCRYPT_VERIFY_PASSWORD*******************************/
 if (!function_exists('bcrypt_verify_password')) {
 
     // Hash password with Blowfish Algorithm
@@ -240,5 +240,138 @@ if (!function_exists('bcrypt_verify_password')) {
     {
         return password_verify($value, $hashedValue);
     }
+}
+/******************************************************************************************/
+/**************************************** CELL COUNT ************************************/
+// Cell count
+// Retourne le nombre d'enregistrements trouvés respectant
+// une certaine condition
+
+if ( ! function_exists ('cell_count') )
+{
+    function cell_count($table, $field_name, $field_value)
+    {
+        global $db;
+
+        $q = $db->prepare("SELECT * FROM $table WHERE $field_name = ? ");
+        $q->execute([$field_value]);
+        return $q->rowcount();
+    }
+}
+/******************************************************************************************/
+/******************************************REMEMBER ME************************************/
+// Remember me
+
+if ( ! function_exists ('remember_me') )
+{
+    function remember_me($user_id)
+    {
+        // Générer le token de manière aléatoire
+        // Générer le sélecteur de manière aléatoire et s' assurer que ce dernier est unique
+        // Sauver ces infos(user_id,selector,expires(14 jours),token(hashed)) en base de données
+        // Créer un cookie auth (14 jours expires) httpOnly => true
+        // Contenu : base64_encode(selector).':'.base64_encode(token)
+
+
+        global $db;
+
+        // Générer le token de manière aléatoire
+        $token  = openssl_random_pseudo_bytes(24);
+        // // Générer le token de manière aléatoire
+
+        do{
+            $selector  = openssl_random_pseudo_bytes(9);
+        }while ( cell_count('auth_tokens','selector',$selector) > 0 );
+        // Sauver ces infos (user_id, selector, expires(14 jours), token (hashed)) en bd
+        $q = $db->prepare("INSERT INTO auth_tokens( expires, selector, user_id, token ) VALUES (DATE_ADD(NOW(),INTERVAL 14 DAY),:selector, :user_id, :token )");
+        $q->execute([
+            'selector' => $selector,
+            'user_id'  => $user_id,
+            'token'    => hash( 'sha256'  , $token)
+        ]);
+        // Créer un cookie 'auth' (14 jours expires) httpOnly =>true
+        // Contenu : base64_encode(selector).' : '.base64_encode(token)
+        setcookie(
+            'auth',
+            base64_encode($selector).':'.base64_encode($token),
+            time() + 60*60*24*14,
+            "",
+            "",
+            false,
+            true
+        );
+    }
+}
+/***********************************************************************************/
+/************************************AUTO LOGIN************************************/
+
+// Auto login
+
+if ( ! function_exists ('auto_login') )
+{
+    function auto_login()
+    {
+
+        global $db;
+
+        // Vérifier que notre cookie 'auth' existe
+        if( ! empty($_COOKIE['auth']) )
+        {
+            $split = explode(':',$_COOKIE['auth']);
+
+            if( count($split) !== 2)
+            {
+                return false;
+            }
+
+            // $selector = $split[0];
+            // $token = $split[1];
+
+            list($selector,$token) = $split;
+
+            $q = $db->prepare("SELECT auth_tokens.token, auth_tokens.user_id,
+                                users.id id_utilisateur, users.pseudo, users.email  
+                                FROM auth_tokens
+                                LEFT JOIN users
+                                ON users.id = auth_tokens.user_id
+                                WHERE selector = ? 
+                               AND expires >= CURDATE() ");
+
+            $q->execute( [base64_decode($selector)] );
+
+            $data = $q->fetch(PDO::FETCH_OBJ);
+
+            if($data)
+            {
+                if( hash_equals( $data->token , hash( 'sha256' , base64_decode( $token ) ) ) )
+                {
+                    session_regenerate_id(true);
+                    $_SESSION['user_id'] = $data->id_utilisateur;
+                    $_SESSION['pseudo'] = $data->pseudo;
+                    $_SESSION['email'] = $data->email;
+                }
+            }
+        }
+        return false;
+        // Récupérer via ce token le $selector et le $token
+
+        // Décoder notre $selector
+
+        // Vérifier au niveau de auth_tokens qu'il y a un enregistrement qui a comme $selector
+
+        // Si on trouve un enregistrement
+        // comparer les deux tokens
+
+
+        // Si tout est bon
+        // Enregistrer toutes les informations en session
+        //
+
+        //
+        // Return true
+        //
+        // Dans le cas contraire return false
+    }
+
 }
 /******************************************************************************************/

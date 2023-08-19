@@ -1,7 +1,13 @@
 <?php
+include "bootstrap/locale.php";
+include "includes/constants.php";
+include "config/database.php";
+include "includes/functions.php";
 
-if(!empty($_COOKIE['user_id']) && !empty($_COOKIE['pseudo'])){
-    $_SESSION['user_id'] = $_COOKIE['user_id'];
-    $_SESSION['pseudo'] = $_COOKIE['pseudo'];
-    $_SESSION['avatar'] = $_COOKIE['avatar'];
-}
+//if(!empty($_COOKIE['user_id']) && !empty($_COOKIE['pseudo'])){
+//    $_SESSION['user_id'] = $_COOKIE['user_id'];
+//    $_SESSION['pseudo'] = $_COOKIE['pseudo'];
+//    $_SESSION['avatar'] = $_COOKIE['avatar'];
+//}
+
+auto_login();

@@ -3,12 +3,11 @@
 session_start();
 /*****************************************************************/
 include "includes/init.php";
-include "bootstrap/locale.php";
 include "filters/auth_filter.php";
-include "config/database.php";
-include "includes/functions.php";
 
 /*****************************************************************/
+
+
  if(isset($_POST['publish'])){
      if(!empty($_POST['content'])){
          extract($_POST);

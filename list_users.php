@@ -4,18 +4,11 @@ session_start();
 /*****************************************************************/
 $title = "Liste des utilisateurs";
 include "includes/init.php";
-include "includes/constants.php";
-include "includes/functions.php";
-include "bootstrap/locale.php";
-include "config/database.php";
-
 /*****************************************************************/
 global  $db;
 $q = $db->query("SELECT id,pseudo, email FROM users ORDER BY pseudo ASC");
 $users = $q->fetchAll(PDO::FETCH_OBJ);
 
-// var_dump($_SESSION);
-// die();
 /*****************************************************************/
 
 $req = $db->query("SELECT id FROM users WHERE active='1'");

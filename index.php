@@ -4,11 +4,6 @@ session_start();
 /*****************************************************************/
 $title = "Accueil";
 include "includes/init.php";
-include "bootstrap/locale.php";
-include "includes/constants.php";
-include "includes/functions.php";
-
-
 /*****************************************************************/
 
 /*****************************************************************/
