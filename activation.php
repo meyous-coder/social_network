@@ -14,7 +14,7 @@ if( !empty($_GET['p']) && is_already_in_use('pseudo',$_GET['p'],'users') && !emp
 	$token = $_GET['token'] ;
 
 	// Le pseudonyme et le token sont ils valident ?w
-	$q = $db->prepare( 'SELECT email, password FROM users WHERE pseudo = ?' );
+	$q = $db->prepare( 'SELECT id email, password FROM users WHERE pseudo = ?' );
 	$q->execute( [$pseudo] );
 
 	$data  = $q->fetch( PDO::FETCH_OBJ );
