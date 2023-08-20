@@ -375,3 +375,15 @@ if ( ! function_exists ('auto_login') )
 
 }
 /******************************************************************************************/
+/************************************ REPLACE LINKS **************************************/
+// Permet de rendre tous les liens d'une chaînes de caractèresggv
+if ( ! function_exists ('replace_links') )
+{
+    function replace_links($texte)
+    {
+        // return str_replace( ["http://twitter.com/estmo","http://google.fr"], ["<a href=\"\">http://twitter.com/estmo</a>","<a href=\"\">http://www.google.fr</a>"], $texte );
+        $regex_url = " /(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\:[0-9]+)?(\/\S*)?/";
+        return preg_replace($regex_url," <a href=\"$0\" target=\"blank\"> $0 </a>", $texte);
+    }
+}
+/******************************************************************************************/
