@@ -387,7 +387,7 @@ if ( ! function_exists ('replace_links') )
     }
 }
 /******************************************************************************************/
-/************************ IF A FRIEND REQUEST HAS ALREADY BEEN SENT ***********************/
+/************************ CHECK IF A FRIEND REQUEST HAS ALREADY BEEN SENT ***********************/
 // Check if a friend request has already been sent
 if ( ! function_exists ('if_a_friend_request_has_already_been_sent') )
 {
@@ -406,3 +406,8 @@ if ( ! function_exists ('if_a_friend_request_has_already_been_sent') )
         return (bool)$count;
     }
 }
+/******************************************************************************************/
+/******************** CHECK IF A FRIEND REQUEST HAS ALREADY BEEN SENT *********************/
+// Check if a friend request has already been sent
+
+/******************************************************************************************/

@@ -12,11 +12,17 @@
                     <div class="row">
                         <div class="col-md-5">
                             <img src="<?= $user->avatar ? $user->avatar : get_avatar_url($user->email, 100) ?>"
-                                 alt="image de profil de <?= e($user->pseudo) ?>" class="avatar-md" >
+                                 alt="image de profil de <?= e($user->pseudo) ?>" class="avatar-md">
                         </div>
                         <div class="col-md-7">
-                            <?php if(!empty($_GET['id']) && get_session('user_id') !== $_GET['id']):?>
-                            <a href="add_friend.php?id=<?= $_GET['id']?>" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Ajouter comme un ami</a>
+                            <?php if (!empty($_GET['id']) && get_session('user_id') !== $_GET['id']): ?>
+                                <?php if (if_a_friend_request_has_already_been_sent(get_session('user_id'),$_GET['id'])): ?>
+                                <p>Demande d'amitié déjà envoyée <a href="delete_friend.php?id=<?= $_GET['id']?>">Annuler la demande</a></p>
+                                <?php else: ?>
+                                    <a href="add_friend.php?id=<?= $_GET['id'] ?>" class="btn btn-primary pull-right"><i
+                                                class="fa fa-plus"></i> Ajouter comme un ami</a>
+                                <?php endif; ?>
+
                             <?php endif; ?>
                         </div>
                     </div>
@@ -74,7 +80,8 @@
                         <div class="form-group">
                             <label for="content" class="sr-only">Statut : </label>
                             <textarea name="content" id="content" rows="3" class="form-control"
-                                      placeholder="Alors quoi de neuf ?" required data-parsley-minlength="3" data-parsley-maxlength="140"></textarea>
+                                      placeholder="Alors quoi de neuf ?" required data-parsley-minlength="3"
+                                      data-parsley-maxlength="140"></textarea>
                         </div>
                         <div class="status-post-submit">
                             <div class="form-group">
