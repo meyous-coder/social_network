@@ -6,7 +6,8 @@
                 <?php foreach ($user_set as $user): ?>
                     <div class="user_block col-md-3">
                         <a href="profile.php?id=<?= $user->id ?>">
-                            <img src="<?= get_avatar_url($user->email, 80) ?>" class="img-circle avatar">
+                            <img src="<?= $user->avatar ? $user->avatar : get_avatar_url($user->email, 100) ?>"
+                                 alt="image de profil de <?= e($user->pseudo) ?>" class="avatar-md" >
                         </a>
                         <a href="profile.php?id=<?= $user->id ?>">
                             <h4 class="user_block_username">

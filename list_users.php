@@ -39,7 +39,7 @@ if($nbre_total_users > 1) {
     $limit = 'LIMIT ' . ($page_num - 1) * $nbre_users_par_page . ',' . $nbre_users_par_page;
 
 //Cette requête sera utilisée plus tard
-    $q = $db->query("SELECT id,pseudo, email FROM users ORDER BY pseudo ASC $limit");
+    $q = $db->query("SELECT id,pseudo, email,avatar FROM users ORDER BY pseudo ASC $limit");
     $users = $q->fetchAll(PDO::FETCH_OBJ);
 
     $pagination = '<nav class="text-center"><ul class="pagination">';

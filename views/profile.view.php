@@ -14,6 +14,11 @@
                             <img src="<?= $user->avatar ? $user->avatar : get_avatar_url($user->email, 100) ?>"
                                  alt="image de profil de <?= e($user->pseudo) ?>" class="avatar-md" >
                         </div>
+                        <div class="col-md-7">
+                            <?php if(!empty($_GET['id']) && get_session('user_id') !== $_GET['id']):?>
+                            <a href="add_friend.php?id=<?= $_GET['id']?>" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Ajouter comme un ami</a>
+                            <?php endif; ?>
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-6">

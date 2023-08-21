@@ -387,3 +387,22 @@ if ( ! function_exists ('replace_links') )
     }
 }
 /******************************************************************************************/
+/************************ IF A FRIEND REQUEST HAS ALREADY BEEN SENT ***********************/
+// Check if a friend request has already been sent
+if ( ! function_exists ('if_a_friend_request_has_already_been_sent') )
+{
+    function if_a_friend_request_has_already_been_sent($id1 , $id2)
+    {
+        global $db ;
+
+        $q = $db->prepare("SELECT status FROM friends_relationships WHERE (user_id1 = :user_id1 AND user_id2 = :user_id2) OR ( user_id2 = :user_id1 AND user_id1 = :user_id2)" );
+        $q->execute( [
+                'user_id1' => $id1,
+                'user_id2' => $id2
+            ]
+        );
+        $count = $q->rowcount();
+        $q->closeCursor();
+        return (bool)$count;
+    }
+}
