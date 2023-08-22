@@ -82,6 +82,17 @@ if (isset($_POST['register'])) {
                 'password' => $password
             ]);
 
+            $q = $db->prepare( 'SELECT id,pseudo FROM users WHERE pseudo = ?' );
+            $q->execute( [$pseudo] );
+
+            $data  = $q->fetch( PDO::FETCH_OBJ );
+            
+            $q = $db->prepare( "INSERT INTO friends_relationships (user_id1, user_id2, status) VALUES ( ? , ? , ? )" );
+            $q->execute( [$data->id , $data->id , '2'] );
+
+
+
+
             set_flash("Mail d' activation envoyé à l' adresse mail : " . $email, 'info');
             redirect("index.php");
 

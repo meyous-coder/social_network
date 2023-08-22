@@ -61,14 +61,12 @@ if (!function_exists('redirect')) {
 /******************************************************************************************/
 /***************************************REDIRECT_INTENT_OR*******************************************/
 
-if ( ! function_exists( 'redirect_intent_or' ) )
-{
-    function redirect_intent_or ( $default_url)
+if (!function_exists('redirect_intent_or')) {
+    function redirect_intent_or($default_url)
     {
-        if( $_SESSION['forwarding_url'] )
-        {
+        if ($_SESSION['forwarding_url']) {
             $url = $_SESSION['forwarding_url'];
-        }else {
+        } else {
             $url = $default_url;
         }
         $_SESSION['forwarding_url'] = null;
@@ -136,15 +134,13 @@ if (!function_exists('set_active')) {
 /******************************************************************************************/
 /************************************GET_SESSION*******************************************/
 // Get a session value by key
-if ( ! function_exists( 'get_session' ) )
-{
-    function get_session ( $key )
+if (!function_exists('get_session')) {
+    function get_session($key)
     {
-        if ($key)
-        {
-            return ! empty ( $_SESSION[$key] )
-                ? e( $_SESSION[$key] )
-                : "null" ;
+        if ($key) {
+            return !empty ($_SESSION[$key])
+                ? e($_SESSION[$key])
+                : "null";
         }
     }
 }
@@ -198,7 +194,6 @@ if (!function_exists('find_code_by_id')) {
 
         $q = $db->prepare("SELECT code FROM codes WHERE id = ?");
         $q->execute([$id]);
-
         $data = $q->fetch(PDO::FETCH_OBJ);
 
         $q->closeCursor();
@@ -247,8 +242,7 @@ if (!function_exists('bcrypt_verify_password')) {
 // Retourne le nombre d'enregistrements trouvés respectant
 // une certaine condition
 
-if ( ! function_exists ('cell_count') )
-{
+if (!function_exists('cell_count')) {
     function cell_count($table, $field_name, $field_value)
     {
         global $db;
@@ -262,8 +256,7 @@ if ( ! function_exists ('cell_count') )
 /******************************************REMEMBER ME************************************/
 // Remember me
 
-if ( ! function_exists ('remember_me') )
-{
+if (!function_exists('remember_me')) {
     function remember_me($user_id)
     {
         // Générer le token de manière aléatoire
@@ -276,25 +269,25 @@ if ( ! function_exists ('remember_me') )
         global $db;
 
         // Générer le token de manière aléatoire
-        $token  = openssl_random_pseudo_bytes(24);
+        $token = openssl_random_pseudo_bytes(24);
         // // Générer le token de manière aléatoire
 
-        do{
-            $selector  = openssl_random_pseudo_bytes(9);
-        }while ( cell_count('auth_tokens','selector',$selector) > 0 );
+        do {
+            $selector = openssl_random_pseudo_bytes(9);
+        } while (cell_count('auth_tokens', 'selector', $selector) > 0);
         // Sauver ces infos (user_id, selector, expires(14 jours), token (hashed)) en bd
         $q = $db->prepare("INSERT INTO auth_tokens( expires, selector, user_id, token ) VALUES (DATE_ADD(NOW(),INTERVAL 14 DAY),:selector, :user_id, :token )");
         $q->execute([
             'selector' => $selector,
-            'user_id'  => $user_id,
-            'token'    => hash( 'sha256'  , $token)
+            'user_id' => $user_id,
+            'token' => hash('sha256', $token)
         ]);
         // Créer un cookie 'auth' (14 jours expires) httpOnly =>true
         // Contenu : base64_encode(selector).' : '.base64_encode(token)
         setcookie(
             'auth',
-            base64_encode($selector).':'.base64_encode($token),
-            time() + 60*60*24*14,
+            base64_encode($selector) . ':' . base64_encode($token),
+            time() + 60 * 60 * 24 * 14,
             "",
             "",
             false,
@@ -307,27 +300,24 @@ if ( ! function_exists ('remember_me') )
 
 // Auto login
 
-if ( ! function_exists ('auto_login') )
-{
+if (!function_exists('auto_login')) {
     function auto_login()
     {
 
         global $db;
 
         // Vérifier que notre cookie 'auth' existe
-        if( ! empty($_COOKIE['auth']) )
-        {
-            $split = explode(':',$_COOKIE['auth']);
+        if (!empty($_COOKIE['auth'])) {
+            $split = explode(':', $_COOKIE['auth']);
 
-            if( count($split) !== 2)
-            {
+            if (count($split) !== 2) {
                 return false;
             }
 
             // $selector = $split[0];
             // $token = $split[1];
 
-            list($selector,$token) = $split;
+            list($selector, $token) = $split;
 
             $q = $db->prepare("SELECT auth_tokens.token, auth_tokens.user_id,
                                 users.id id_utilisateur, users.pseudo, users.email  
@@ -337,14 +327,12 @@ if ( ! function_exists ('auto_login') )
                                 WHERE selector = ? 
                                AND expires >= CURDATE() ");
 
-            $q->execute( [base64_decode($selector)] );
+            $q->execute([base64_decode($selector)]);
 
             $data = $q->fetch(PDO::FETCH_OBJ);
 
-            if($data)
-            {
-                if( hash_equals( $data->token , hash( 'sha256' , base64_decode( $token ) ) ) )
-                {
+            if ($data) {
+                if (hash_equals($data->token, hash('sha256', base64_decode($token)))) {
                     session_regenerate_id(true);
                     $_SESSION['user_id'] = $data->id_utilisateur;
                     $_SESSION['pseudo'] = $data->pseudo;
@@ -377,37 +365,72 @@ if ( ! function_exists ('auto_login') )
 /******************************************************************************************/
 /************************************ REPLACE LINKS **************************************/
 // Permet de rendre tous les liens d'une chaînes de caractèresggv
-if ( ! function_exists ('replace_links') )
-{
+if (!function_exists('replace_links')) {
     function replace_links($texte)
     {
         // return str_replace( ["http://twitter.com/estmo","http://google.fr"], ["<a href=\"\">http://twitter.com/estmo</a>","<a href=\"\">http://www.google.fr</a>"], $texte );
         $regex_url = " /(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\:[0-9]+)?(\/\S*)?/";
-        return preg_replace($regex_url," <a href=\"$0\" target=\"blank\"> $0 </a>", $texte);
+        return preg_replace($regex_url, " <a href=\"$0\" target=\"blank\"> $0 </a>", $texte);
     }
 }
 /******************************************************************************************/
 /************************ CHECK IF A FRIEND REQUEST HAS ALREADY BEEN SENT ***********************/
 // Check if a friend request has already been sent
-if ( ! function_exists ('if_a_friend_request_has_already_been_sent') )
-{
-    function if_a_friend_request_has_already_been_sent($id1 , $id2)
+if (!function_exists('if_a_friend_request_has_already_been_sent')) {
+    function if_a_friend_request_has_already_been_sent($id1, $id2)
     {
-        global $db ;
+        global $db;
 
-        $q = $db->prepare("SELECT status FROM friends_relationships WHERE (user_id1 = :user_id1 AND user_id2 = :user_id2) OR ( user_id2 = :user_id1 AND user_id1 = :user_id2)" );
-        $q->execute( [
+        $q = $db->prepare("SELECT status FROM friends_relationships WHERE (user_id1 = :user_id1 AND user_id2 = :user_id2) OR ( user_id2 = :user_id1 AND user_id1 = :user_id2)");
+        $q->execute([
                 'user_id1' => $id1,
                 'user_id2' => $id2
-            ]
-        );
+            ]);
         $count = $q->rowcount();
         $q->closeCursor();
         return (bool)$count;
+
+//        cas 2
+//        $data = $q->fetch();
+//        if($data){
+//            return true;
+//        }else{
+//            return false;
+//        }
     }
 }
-/******************************************************************************************/
-/******************** CHECK IF A FRIEND REQUEST HAS ALREADY BEEN SENT *********************/
-// Check if a friend request has already been sent
+/*****************************************************************************************/
+/************************************ RELATION LINK TO DISPLAY ***************************/
+// Checks if a friend request has already been sent
+if (!function_exists('relation_link_to_display')) {
+    function relation_link_to_display($id)
+    {
+        global $db;
+        $q = $db->prepare("SELECT user_id1, user_id2, status FROM friends_relationships WHERE (user_id1 = :user_id1 AND user_id2 = :user_id2) OR ( user_id2 = :user_id1 AND user_id1 = :user_id2 )");
+        $q->execute([
+            'user_id1' => get_session('user_id'),
+            'user_id2' => $id
+        ]);
+        $data = $q->fetch();
+        $q->closeCursor();
 
+        if ($data) {
+            if ($data['user_id1'] == $id && $data['status'] == '0') {
+                // Lien pour accepter ou refuser la demande d' amitié
+                return "accept_reject_relation_link";
+            } elseif ($data['user_id1'] == get_session('user_id') && $data['status'] == '0') {
+                // Lien pour annuler la demande
+                // Message pour dire que la demande a été envoyée
+                return "cancel_relation_link";
+            } elseif ($data['status'] == '1') {
+                // Lien pour supprimer la relation d' amitié
+                return "delete_relation_link";
+            }
+        } else {
+            // Lien pour ajouter la personne comme ami(e)
+            return "add_relation_link";
+        }
+    }
+
+}
 /******************************************************************************************/

@@ -6,7 +6,7 @@
         <div class="col-md-6">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Profil de : <?= e(get_session('pseudo')) ?></h3>
+                    <h3 class="panel-title">Profil de : <?= e($user->pseudo) ?></h3>
                 </div>
                 <div class="panel-body">
                     <div class="row">
@@ -16,13 +16,7 @@
                         </div>
                         <div class="col-md-7">
                             <?php if (!empty($_GET['id']) && get_session('user_id') !== $_GET['id']): ?>
-                                <?php if (if_a_friend_request_has_already_been_sent(get_session('user_id'),$_GET['id'])): ?>
-                                <p>Demande d'amitié déjà envoyée <a href="delete_friend.php?id=<?= $_GET['id']?>">Annuler la demande</a></p>
-                                <?php else: ?>
-                                    <a href="add_friend.php?id=<?= $_GET['id'] ?>" class="btn btn-primary pull-right"><i
-                                                class="fa fa-plus"></i> Ajouter comme un ami</a>
-                                <?php endif; ?>
-
+                                <?php require("partials/_relation_links.php") ?>
                             <?php endif; ?>
                         </div>
                     </div>
