@@ -383,9 +383,9 @@ if (!function_exists('if_a_friend_request_has_already_been_sent')) {
 
         $q = $db->prepare("SELECT status FROM friends_relationships WHERE (user_id1 = :user_id1 AND user_id2 = :user_id2) OR ( user_id2 = :user_id1 AND user_id1 = :user_id2)");
         $q->execute([
-                'user_id1' => $id1,
-                'user_id2' => $id2
-            ]);
+            'user_id1' => $id1,
+            'user_id2' => $id2
+        ]);
         $count = $q->rowcount();
         $q->closeCursor();
         return (bool)$count;
@@ -431,6 +431,5 @@ if (!function_exists('relation_link_to_display')) {
             return "add_relation_link";
         }
     }
-
 }
 /******************************************************************************************/
