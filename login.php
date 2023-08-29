@@ -15,7 +15,7 @@ if (isset($_POST['login'])) {
         extract($_POST);
         $q = $db->prepare("SELECT id, pseudo,email,avatar, password AS hashed_password FROM users 
                                  WHERE (pseudo = :identifiant OR  email = :identifiant)
-                                 AND active ='0'");
+                                 AND active ='1'");
         $q->execute([
             'identifiant' => $identifiant
         ]);

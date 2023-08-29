@@ -2,7 +2,7 @@
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
-                aria-expanded="false" aria-controls="navbar">
+                    aria-expanded="false" aria-controls="navbar">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -22,19 +22,21 @@
                     </a></li> -->
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                       aria-expanded="false"> <img src="<?= get_session("avatar")?:get_avatar_url(get_session("email"), 25) ?>"
-                                                   alt="image de profil de <?= e(get_session("pseudo")) ?>" class="avatar-xs"> <span class="caret"></span></a>
+                       aria-expanded="false"> <img
+                                src="<?= get_session("avatar") ?: get_avatar_url(get_session("email"), 25) ?>"
+                                alt="image de profil de <?= e(get_session("pseudo")) ?>" class="avatar-xs"> <span
+                                class="caret"></span></a>
                     <ul class="dropdown-menu">
 
                         <?php if (is_logged_in()): ?>
                             <li class="<?= set_active("profile") ?>"><a
-                                    href="profile.php?id=<?= get_session("user_id") ?>"><?= $menu['mon_profil'][get_current_locale()] ?></a>
+                                        href="profile.php?id=<?= get_session("user_id") ?>"><?= $menu['mon_profil'][get_current_locale()] ?></a>
                             </li>
                             <li class="<?= set_active('change_password') ?>">
-                                <a href="change_password.php"><?= $menu['change_password'][$_SESSION['locale']]?></a>
+                                <a href="change_password.php"><?= $menu['change_password'][$_SESSION['locale']] ?></a>
                             </li>
                             <li class="<?= set_active("edit_user") ?>"><a
-                                    href="edit_user.php?id=<?= get_session("user_id") ?>"><?= $menu['mod_profil'][get_current_locale()] ?></a>
+                                        href="edit_user.php?id=<?= get_session("user_id") ?>"><?= $menu['mod_profil'][get_current_locale()] ?></a>
                             </li>
                             <li class="<?= set_active("share_code") ?>"><a href="share_code.php">
                                     <?= $menu['share_code'][get_current_locale()] ?>
@@ -51,8 +53,12 @@
                                     <?= $menu['connexion'][get_current_locale()] ?>
                                 </a></li>
                         <?php endif; ?>
-
                     </ul>
+                    <?php if (is_logged_in()): ?>
+                <li class="have_notifs">
+                    <a href="notifications.php"><i class="fa fa-bell"><?= $notifications_count > 0 ? " ( $notifications_count )" : ''?></i></a>
+                </li>
+                <?php endif; ?>
                 </li>
             </ul>
         </div><!--/.nav-collapse -->
