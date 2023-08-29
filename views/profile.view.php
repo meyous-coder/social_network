@@ -6,7 +6,7 @@
         <div class="col-md-6">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Profil de : <?= e($user->pseudo) ?></h3>
+                    <h3 class="panel-title">Profil de : <?= e($user->pseudo) ?> ( <?= friends_count($_GET['id'])?> ami<?= friends_count($_GET['id']) > 1 ? "s" : "" ?> )</h3>
                 </div>
                 <div class="panel-body">
                     <div class="row">

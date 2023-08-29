@@ -433,3 +433,19 @@ if (!function_exists('relation_link_to_display')) {
     }
 }
 /******************************************************************************************/
+/***************************************** FRIENDS COUNT *********************************/
+// Friends Count
+if ( ! function_exists ('friends_count') )
+{
+    function friends_count($id)
+    {
+        global $db ;
+
+        $q = $db->prepare("SELECT status FROM friends_relationships WHERE (status = '1' AND user_id1 = :user) OR (status = '1' AND user_id2 = :user )");
+        $q->execute(['user' => $id]);
+        $count = $q->rowcount();
+        $q->closeCursor();
+        return $count;
+    }
+}
+/******************************************************************************************/
