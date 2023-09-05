@@ -23,7 +23,7 @@
     <link href="libraries/alertifyjs/css/alertify.min.css" rel="stylesheet">
     <link href="libraries/alertifyjs/css/themes/bootstrap.css" rel="stylesheet">
     <link href="assets/css/main.css" rel="stylesheet">
-
+    <link rel="stylesheet" href="libraries/sweetalert/sweetalert2.min.css">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>

@@ -1,9 +1,6 @@
 <?php include "partials/_header.php" ?>
-
     <div class="container">
-
         <h1 class="lead">Vos notifications</h1>
-
         <div class="row">
             <div class="col-md-10">
                     <ul class="list-group">
@@ -16,9 +13,7 @@
                     <div id="pagination"><?= $pagination ?></div>
             </div>
         </div>
-
     </div><!-- /.container -->
-
 <?php include "partials/_footer.php" ?>
 <script src="assets/js/jquery.timeago.js"></script>
 <script src="assets/js/jquery.timeago.fr.js"></script>
