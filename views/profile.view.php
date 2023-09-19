@@ -5,7 +5,8 @@
         <div class="col-md-6">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Profil de : <?= e($user->pseudo) ?> ( <?= friends_count($_GET['id'])?> ami<?= friends_count($_GET['id']) > 1 ? "s" : "" ?> )</h3>
+                    <h3 class="panel-title">Profil de : <?= e($user->pseudo) ?> ( <?= friends_count($_GET['id']) ?>
+                        ami<?= friends_count($_GET['id']) > 1 ? "s" : "" ?> )</h3>
                 </div>
                 <div class="panel-body">
                     <div class="row">
@@ -123,6 +124,31 @@
 
     $(document).ready(function () {
         $(".timeago").timeago();
+
+        $(".like").on("click", function (e) {
+            e.preventDefault();
+            // const action = $(this).attr("data-action");
+
+            const id = $(this).attr("id");
+            const action = $(this).data("action");
+            // const micropostId = $(this).data("micropost-id");
+            const micropostId = id.split("like")[1];
+            const url = "ajax/micropost_like.php";
+            const data = 'micropost_id=' + micropostId + '&action=' + action;
+
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: data,
+                success : function (response) {
+                    if(action =='like'){
+                        $('#'+ id).html("Je n' aime plus").data('action','unlike');
+                    }else {
+                        $('#'+ id).html("J' aime").data('action','like');;
+                    }
+                }
+            });
+        });
     });
 </script>
 </body>

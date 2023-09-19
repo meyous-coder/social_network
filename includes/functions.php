@@ -449,3 +449,22 @@ if ( ! function_exists ('friends_count') )
     }
 }
 /******************************************************************************************/
+/****************************** USER_HAS_ALREADY_LIKED_THE_MICROPOST **********************/
+// Friends Count
+if ( ! function_exists ('user_has_already_liked_the_micropost') )
+{
+    function user_has_already_liked_the_micropost($micropost_id)
+    {
+        global $db ;
+
+        $q = $db->prepare("SELECT id FROM micropost_like WHERE user_id =:user_id AND micropost_id =:micropost_id");
+        $q->execute([
+            'user_id' => get_session("user_id"),
+            'micropost_id' => $micropost_id
+        ]);
+        $count = $q->rowcount();
+        $q->closeCursor();
+        return (bool) $count;
+    }
+}
+/******************************************************************************************/
