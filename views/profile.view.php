@@ -134,17 +134,20 @@
             // const micropostId = $(this).data("micropost-id");
             const micropostId = id.split("like")[1];
             const url = "ajax/micropost_like.php";
-            const data = 'micropost_id=' + micropostId + '&action=' + action;
 
             $.ajax({
                 type: 'POST',
                 url: url,
-                data: data,
-                success : function (response) {
-                    if(action =='like'){
-                        $('#'+ id).html("Je n' aime plus").data('action','unlike');
-                    }else {
-                        $('#'+ id).html("J' aime").data('action','like');;
+                data: {
+                    micropost_id: micropostId,
+                    action: action
+                },
+                success: function (likers) {
+                    $('#likers_' + micropostId).html(likers);
+                    if (action == 'like') {
+                        $('#' + id).html("Je n' aime plus").data('action', 'unlike');
+                    } else {
+                        $('#' + id).html("J' aime").data('action', 'like');
                     }
                 }
             });

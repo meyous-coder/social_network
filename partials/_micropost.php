@@ -26,6 +26,9 @@
                 <a id="like<?= $micropost->m_id; ?>" data-action="like" data-micropost-id="<?=$micropost->m_id?>" class="like" href="like_micropost.php?id=<?= $micropost->m_id ?>">J' aime</a>
             <?php endif; ?>
         </p>
-        Nombre de j' aime (<?= $micropost->like_count ?>)
+
+        <div id="likers_<?= $micropost->m_id ?>">
+            <?= get_likers_text($micropost->m_id)?>
+        </div>
     </div>
 </article>

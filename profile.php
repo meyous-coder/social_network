@@ -13,6 +13,7 @@ if (!empty($_GET['id'])) {
     if (!$user) {
         redirect("index.php");
     } else {
+
 //        $q = $db->prepare("SELECT id,content, created_at FROM microposts WHERE user_id = :user_id  ORDER BY created_at DESC ");
         $q = $db->prepare("SELECT U.id user_id, U.pseudo, U.email, U.avatar, M.id m_id, M.content, M.created_at,M.like_count
                                     FROM users U,

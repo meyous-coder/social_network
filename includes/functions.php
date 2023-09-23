@@ -170,7 +170,7 @@ if (!function_exists('get_avatar_url')) {
     // Find an user by id
     function get_avatar_url($email, $size = 25)
     {
-        return "http://gravatar.com/avatar/" . md5(strtolower(trim($email))) . "?s=" . $size;
+        return "http://gravatar.com/avatar/" . md5(strtolower(trim($email))) . "?s=" . $size . "&d=wavatar";
     }
 }
 /******************************************************************************************/
@@ -435,11 +435,10 @@ if (!function_exists('relation_link_to_display')) {
 /******************************************************************************************/
 /***************************************** FRIENDS COUNT *********************************/
 // Friends Count
-if ( ! function_exists ('friends_count') )
-{
+if (!function_exists('friends_count')) {
     function friends_count($id)
     {
-        global $db ;
+        global $db;
 
         $q = $db->prepare("SELECT status FROM friends_relationships WHERE (status = '1' AND user_id1 = :user) OR (status = '1' AND user_id2 = :user )");
         $q->execute(['user' => $id]);
@@ -451,11 +450,10 @@ if ( ! function_exists ('friends_count') )
 /******************************************************************************************/
 /****************************** USER_HAS_ALREADY_LIKED_THE_MICROPOST **********************/
 // Friends Count
-if ( ! function_exists ('user_has_already_liked_the_micropost') )
-{
+if (!function_exists('user_has_already_liked_the_micropost')) {
     function user_has_already_liked_the_micropost($micropost_id)
     {
-        global $db ;
+        global $db;
 
         $q = $db->prepare("SELECT id FROM micropost_like WHERE user_id =:user_id AND micropost_id =:micropost_id");
         $q->execute([
@@ -464,7 +462,140 @@ if ( ! function_exists ('user_has_already_liked_the_micropost') )
         ]);
         $count = $q->rowcount();
         $q->closeCursor();
-        return (bool) $count;
+        return (bool)$count;
     }
 }
 /******************************************************************************************/
+
+// Like micropost
+if (!function_exists('like_micropost')) {
+    function like_micropost($micropost_id)
+    {
+        global $db;
+
+        $q = $db->prepare("INSERT INTO micropost_like(user_id,micropost_id) VALUES(:user_id,:micropost_id)");
+        $q->execute([
+            'user_id' => get_session('user_id'),
+            'micropost_id' => $micropost_id
+        ]);
+
+        $q = $db->prepare("UPDATE microposts SET like_count = like_count + 1 WHERE id = ?");
+        $q->execute([$micropost_id]);
+    }
+}
+
+// Unlike micropost
+if (!function_exists('unlike_micropost')) {
+    function unlike_micropost($micropost_id)
+    {
+        global $db;
+
+        $q = $db->prepare("DELETE FROM micropost_like WHERE user_id = :user_id and micropost_id = :micropost_id");
+        $q->execute([
+            'user_id' => get_session('user_id'),
+            'micropost_id' => $micropost_id
+        ]);
+        $q = $db->prepare("UPDATE microposts SET like_count = like_count - 1 WHERE id = ?");
+        $q->execute([$micropost_id]);
+    }
+}
+
+//Return count likes of a given micropost
+if (!function_exists('get_like_count')) {
+    function get_like_count($micropost_id)
+    {
+        global $db;
+
+        $q = $db->prepare("SELECT like_count FROM microposts WHERE id = :id ");
+        $q->execute(['id' => $micropost_id]);
+        $data = $q->fetch(PDO::FETCH_OBJ);
+        return intval($data->like_count);
+
+    }
+}
+
+//Return likers of a given micropost
+if (!function_exists('get_likers')) {
+    function get_likers($micropost_id)
+    {
+        global $db;
+
+        $q = $db->prepare("SELECT users.id , users.pseudo FROM users 
+                          LEFT JOIN micropost_like 
+                          ON users.id = micropost_like.user_id
+                          WHERE micropost_id = :micropost_id
+                          ORDER BY micropost_like.id DESC 
+                          LIMIT 3 ");
+        $q->execute(['micropost_id' => $micropost_id]);
+        return $q->fetchAll(PDO::FETCH_OBJ);
+    }
+}
+
+// Check if the current user has liked the given post
+if (!function_exists('check_if_the_current_user_has_liked_the_micropost')) {
+    function check_if_the_current_user_has_liked_the_micropost($micropost_id)
+    {
+        global $db;
+
+        $q = $db->prepare("SELECT id FROM micropost_like WHERE user_id = ? AND micropost_id = ? ");
+        $q->execute([get_session('user_id'), $micropost_id]);
+        $data = $q->fetch(PDO::FETCH_OBJ);
+        $count = $q->rowCount();
+        $q->closeCursor();
+        return (bool)$count;
+    }
+}
+
+// Display likers of a given micropost
+if (!function_exists('get_likers_text')) {
+    function get_likers_text($micropost_id)
+    {
+
+        $like_count = get_like_count($micropost_id);
+        $likers = get_likers($micropost_id);
+        $output = '';
+        if ($like_count > 0) {
+            $itself_like = check_if_the_current_user_has_liked_the_micropost($micropost_id);
+            $remaining_like_count = $like_count - 3;
+            foreach ($likers as $liker) {
+                if (get_session('user_id') !== $liker->id) {
+                    $output .= '<a href="profile.php?id=' . $liker->id . '">' . e($liker->pseudo) . '</a>, ';
+                }
+
+            }
+            $output = $itself_like ? "Vous, " . $output : $output;
+
+            if ($like_count == 2 || $like_count == 3 && $output != "") {
+                $output = trim($output, ', ');
+                $arr = explode(',', $output);
+                $lastItem = array_pop($arr);
+                $output = implode(',', $arr);
+                $output .= ' et' . $lastItem;
+            }
+
+            $output = trim($output, ', ');
+
+            switch ($like_count) {
+                case 1:
+                    $output .= $itself_like ? ' aimez cela. ' : ' aime cela.';
+                    break;
+                case 2:
+
+                case 3:
+                    $output .= $itself_like ? ' aimez cela. ' : ' aiment cela.';
+                    break;
+                case 4:
+                    $output .= $itself_like ? ' et une autre personne aimez cela. ' : ' et 1 autre personne aiment cela.';
+                    break;
+                default:
+                    $output .= $itself_like ? ' et ' . $remaining_like_count . ' autres personnes aimez cela. ' : ' et ' . $remaining_like_count . ' autres personnes aiment cela.';
+                    break;
+            }
+
+
+            return $output;
+        }
+
+
+    }
+}
